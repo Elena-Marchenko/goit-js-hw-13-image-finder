@@ -25,15 +25,14 @@ function onSearch(evt) {
   newsApiService.query = evt.currentTarget.elements.query.value.trim();
 
   if (!newsApiService.query) {
+    loadMoreBtn.hide();
     clearGalleryContainer();
-    loadMoreBtn.disable();
-    return;
+  } else {
+    loadMoreBtn.show();
+    newsApiService.resetPage();
+    clearGalleryContainer();
+    fetchArticles();
   }
-
-  loadMoreBtn.show();
-  newsApiService.resetPage();
-  clearGalleryContainer();
-  fetchArticles();
 }
 
 function scrollToButton() {
@@ -43,14 +42,17 @@ function scrollToButton() {
   });
 }
 
-function fetchArticles() {
+async function fetchArticles() {
   loadMoreBtn.disable();
-
-  newsApiService.fetchArticles().then(hits => {
-    galleryMarkup(hits);
-    loadMoreBtn.enable();
-    scrollToButton();
-  });
+  try {
+    await newsApiService.fetchArticles().then(hits => {
+      galleryMarkup(hits);
+      loadMoreBtn.enable();
+      scrollToButton();
+    });
+  } catch (error) {
+    console.log('Ошибка', error);
+  }
 }
 
 function galleryMarkup(hits) {
