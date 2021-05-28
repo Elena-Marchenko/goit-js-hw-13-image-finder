@@ -10,9 +10,31 @@
       integrity="sha512-ISS7cAi1PEhQ8jnbJpJZMd29NlhNj4AWYyLOSp2CE/CsHxTCu+r+t0D2yoJudVrd0/8fTVPUVDzY5Tvli75u/g=="
       crossorigin="anonymous"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
+
   <body>
-    
+    <form class="form-inline search-form" id="search-form">
+      <input type="text" name="query" autocomplete="off" placeholder="Поиск изображения..." />
+      <button type="submit" class="btn button-start btn-primary">Поиск</button>
+    </form>
+    <div class="gallery-container">
+      <ul class="gallery js-gallery"></ul>
+      <button type="button" class="btn btn-primary button" data-action="load-more">
+        <span
+          class="spinner-border spinner-border-sm spinner is-hidden"
+          role="status"
+          aria-hidden="true"
+        >
+        </span>
+        <span class="label">Показать ещё</span>
+      </button>
+    </div>
+
     <script src="./index.js"></script>
   </body>
 </html>
