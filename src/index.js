@@ -22,7 +22,13 @@ loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 function onSearch(evt) {
   evt.preventDefault();
 
-  newsApiService.query = evt.currentTarget.elements.query.value;
+  newsApiService.query = evt.currentTarget.elements.query.value.trim();
+
+  if (!newsApiService.query) {
+    clearGalleryContainer();
+    loadMoreBtn.disable();
+    return;
+  }
 
   loadMoreBtn.show();
   newsApiService.resetPage();
