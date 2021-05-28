@@ -6,8 +6,9 @@ import LoadeMoreBtn from './js/load-more-btn';
 const refs = {
   searchForm: document.querySelector('#search-form'),
   galleryContainer: document.querySelector('.js-gallery'),
-  //   loadMoreBtn: document.querySelector('[data-action="load-more"]'),
+  loadMoreBtn: document.querySelector('[data-action="load-more"]'),
 };
+
 const loadMoreBtn = new LoadeMoreBtn({
   selector: '[data-action="load-more"]',
   hidden: true,
@@ -29,33 +30,23 @@ function onSearch(evt) {
   fetchArticles();
 }
 
-// document.querySelectorAll('.button').forEach(button => {
-//   button.addEventListener('click', () => {
-//     button.scrollIntoView({
-//       behavior: 'smooth',
-//       block: button.dataset.pos,
-//     });
-//   });
-// });
-
 function scrollToButton() {
-  loadMoreBtn.refs.button.forEach(button => {
-    button.addEventListener('click', () => {
-      button.scrollIntoView({
-        behavior: 'smooth',
-        block: button.dataset.pos,
-      });
-    });
+  refs.loadMoreBtn.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
   });
 }
 
 function fetchArticles() {
   loadMoreBtn.disable();
 
-  newsApiService.fetchArticles().then(hits => {
-    galleryMarkup(hits);
-    loadMoreBtn.enable();
-  });
+  newsApiService
+    .fetchArticles()
+    .then(hits => {
+      galleryMarkup(hits);
+      loadMoreBtn.enable();
+    })
+    .then(scrollToButton);
 }
 
 function galleryMarkup(hits) {
