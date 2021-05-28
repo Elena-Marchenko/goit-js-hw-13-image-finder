@@ -46,13 +46,11 @@ function scrollToButton() {
 function fetchArticles() {
   loadMoreBtn.disable();
 
-  newsApiService
-    .fetchArticles()
-    .then(hits => {
-      galleryMarkup(hits);
-      loadMoreBtn.enable();
-    })
-    .then(scrollToButton);
+  newsApiService.fetchArticles().then(hits => {
+    galleryMarkup(hits);
+    loadMoreBtn.enable();
+    scrollToButton();
+  });
 }
 
 function galleryMarkup(hits) {
